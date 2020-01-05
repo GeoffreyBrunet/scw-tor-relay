@@ -1,9 +1,13 @@
 provider "scaleway" {
-  access_key      = "SCWK9Z9ZMHXTFD8ZEGPK"
-  secret_key      = "642ab7c4-e2ec-4dbb-8b01-a72735a6071d"
-  organization_id = "af42f501-9877-4a22-b224-925614cbd7fc"
+  access_key      = "SCALEWAY_ACCESS_KEY"
+  secret_key      = "SCALEWAY_SECRET_KEY"
+  organization_id = "SCALEWAY_ORGANIZATION_ID"
   zone            = "fr-par-1"
   region          = "fr-par"
+}
+
+data "scaleway_account_ssh_key" "my_key" {
+  ssh_key_id = "11111111-1111-1111-1111-111111111111"
 }
 
 resource "scaleway_instance_ip" "public_ip" {}
