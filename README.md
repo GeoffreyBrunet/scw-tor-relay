@@ -32,6 +32,11 @@ Modify /etc/ansible/hosts and add IP adresse of your server, obtained by the out
 vim /etc/ansible/hosts
 ```
 
+If you have an error because ssh connexion don't work, run the following command for add IP address in known_hosts:
+```
+ssh-keygen -r IP_ADDRESS
+```
+
 Install and configure Tor relay on the server
 ```shell
 ansible-playbook main.yml
