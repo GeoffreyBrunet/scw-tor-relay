@@ -6,10 +6,6 @@ provider "scaleway" {
   region          = "fr-par"
 }
 
-data "scaleway_account_ssh_key" "my_key" {
-  ssh_key_id = "11111111-1111-1111-1111-111111111111"
-}
-
 resource "scaleway_instance_ip" "public_ip" {}
 
 resource "scaleway_instance_security_group" "www" {
