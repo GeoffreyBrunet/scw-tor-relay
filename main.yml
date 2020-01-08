@@ -1,6 +1,17 @@
 - hosts: tor-relay
 
   tasks:
+
+    - name: Remove old sources.list
+      file:
+        path: /etc/apt/sources.list
+        state: absent
+
+    - name: Copy new sources.list
+      copy:
+        src: ./sources.list
+        dest: /etc/apt/
+
     - name: Update all packages
       apt:
         upgrade: dist
@@ -16,10 +27,39 @@
           - curl
           - sudo
           - python3-distutils
+          - apt-transport-https
+
+    - name: Add the gpg key used to sign the packages
+      shell: wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
+
+    - name: Save gpg key
+      shell: gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
+
+    - name: Update repositories
+      shell: apt update
 
     - name: Install Tor
-      apt:
+      shell: apt install -y tor deb.torproject.org-keyring
+
+    - name: Remove old torrc configuration
+      file:
+        path: /etc/tor/torrc
+        state: absent
+
+    - name: Copy torrc new config
+      copy:
+        src: ./torrc
+        dest: /etc/tor/torrc
+
+    - name: Creates Tor folder
+      file:
+        path: /var/lib/tor
+        state: directory
+
+    - name: Restart tor service
+      service:
         name: tor
+        state: restarted
 
     - name: Install Nyx
       apt:
