@@ -1,0 +1,26 @@
+- hosts: tor-relay
+
+  tasks:
+    - name: Update all packages
+      apt:
+        upgrade: dist
+
+    - name: Upgrade all packages
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Install prerequisites
+      apt:
+        pkg:
+          - curl
+          - sudo
+          - python3-distutils
+
+    - name: Install Tor
+      apt:
+        name: tor
+
+    - name: Install Nyx
+      apt:
+        name: nyx
