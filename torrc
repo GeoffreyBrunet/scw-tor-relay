@@ -1,0 +1,10 @@
+RunAsDaemon 1
+ORPort 9001
+DirPort 9030
+SocksPort 9050
+ControlPort 9051
+DataDirectory /var/lib/tor
+Address 212.47.238.3
+Nickname cygnusx1
+ContactInfo geoffrey-brunet89@outlook.fr
+ExitPolicy reject *:*
